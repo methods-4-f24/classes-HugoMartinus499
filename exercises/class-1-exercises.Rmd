@@ -52,6 +52,7 @@ mtext("20 points")
 ```{r}
 
 # Your answer here.
+# (2) Probability of rain given monday Pr(rain|Monday)
 
 ```
 
@@ -60,6 +61,7 @@ mtext("20 points")
 ```{r}
 
 # Your answer here.
+# (3) The probability of it being Monday given that it is raining
 
 ```
 
@@ -68,6 +70,7 @@ mtext("20 points")
 ```{r}
 
 # Your answer here.
+# (1) Pr(Monday|rain)
 
 ```
 
@@ -76,6 +79,7 @@ mtext("20 points")
 ```{r}
 
 # Discuss in pairs/groups. Ask me for a hint if you feel like it.
+# It means that when randomly marking a spot on the globe there is 70% change of the spot being marked is in water. In other words, 70 out of 100 times the marked spot will be water.
 
 ```
 
@@ -86,6 +90,33 @@ mtext("20 points")
 ```{r}
 
 # Write your code here.
+
+# Define grid
+p_grid = seq(from = 0, to = 1, length.out = 20)
+
+# Define prior
+prior = rep(1, 20)
+
+# Compute likelihood for each part of the grid
+likelihood = dbinom(5, size = 7, prob = p_grid)
+# For (1) W,W,W change to:
+## likelihood = dbinom(3, size = 3, prob = p_grid)
+# For (2) W,W,W,L change to:
+## likelihood = dbinom(3, size = 4, prob = p_grid)
+# For (3) L,W,W,L,W,W,W change to:
+## likelihood = dbinom(5, size = 7, prob = p_grid)
+
+# Compute product of likelihood and prior
+unstd.posterior = likelihood * prior
+
+# Standardize the posterior so it sums to 1
+posterior = unstd.posterior / sum(unstd.posterior)
+
+# Plot the distribution
+plot(p_grid, posterior, type = "b",
+     xlab = "probability of water", ylab = "posterior_probability")
+mtext("20 points")
+
 
 ```
 
